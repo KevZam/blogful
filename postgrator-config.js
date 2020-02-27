@@ -5,5 +5,9 @@ require("dotenv").config();
 module.exports = {
   migrationsDirectory: "migrations",
   driver: "pg",
-  connectionString: process.env.DB_URL
+  // set the connectionString to the test database when the NODE_ENV test script is run, otherwise use the regular dev db
+  connectionString:
+    process.env.NODE_ENV === "test"
+      ? process.env.TEST_DB_URL
+      : process.env.DB_URL
 };
